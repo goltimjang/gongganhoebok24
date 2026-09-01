@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://caddiewow-blip.github.io/gongganhoebok24/sitemap.xml
