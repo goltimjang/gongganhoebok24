@@ -44,7 +44,7 @@ python3 -m http.server 8613
 3. HTTPS(Enforce HTTPS) 활성화
 4. 모든 HTML의 `canonical`, `og:url`, JSON-LD URL과 `sitemap.xml`, `robots.txt`의 주소를 새 도메인으로 일괄 치환:
    ```bash
-   grep -rl "caddiewow-blip.github.io/gongganhoebok24" . | xargs sed -i '' 's#https://caddiewow-blip.github.io/gongganhoebok24#https://areaclaen24.co.kr#g'
+   grep -rl "goltimjang.github.io/gongganhoebok24" . | xargs sed -i '' 's#https://goltimjang.github.io/gongganhoebok24#https://areaclaen24.co.kr#g'
    ```
 
 ## 회사로 소유권 이전
