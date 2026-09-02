@@ -126,3 +126,40 @@
   }, { threshold: 0.4 });
   els.forEach(function (el) { io.observe(el); });
 })();
+
+// 스크롤 등장 애니메이션
+(function () {
+  var els = document.querySelectorAll('[data-reveal]');
+  if (!els.length) return;
+  if (!('IntersectionObserver' in window) ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    els.forEach(function (el) { el.classList.add('shown'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('shown');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+
+// 진행 절차 연결선 채우기
+(function () {
+  var line = document.querySelector('.step-line');
+  if (!line) return;
+  if (!('IntersectionObserver' in window) ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    line.classList.add('run');
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { line.classList.add('run'); io.disconnect(); }
+    });
+  }, { threshold: 0.5 });
+  io.observe(line);
+})();
