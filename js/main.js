@@ -20,10 +20,11 @@
   }
 })();
 
-// 작업 전후 비교 슬라이더: 마우스를 따라 움직이고, 터치 드래그와 키보드(range)도 지원
+// 작업 전후 비교 슬라이더: 누른 채로 움직여야 이동한다 (마우스, 터치, 키보드 지원)
 (function () {
   document.querySelectorAll('.bas').forEach(function (el) {
     var range = el.querySelector('input[type="range"]');
+    var dragging = false;
 
     function set(p) {
       p = Math.max(0, Math.min(100, p));
@@ -31,17 +32,42 @@
       if (range && Number(range.value) !== Math.round(p)) range.value = Math.round(p);
     }
 
-    function fromEvent(e) {
+    function moveTo(clientX) {
       var rect = el.getBoundingClientRect();
-      var x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-      set((x / rect.width) * 100);
+      set(((clientX - rect.left) / rect.width) * 100);
     }
 
-    el.addEventListener('mousemove', fromEvent);
-    el.addEventListener('touchstart', fromEvent, { passive: true });
-    el.addEventListener('touchmove', fromEvent, { passive: true });
+    el.addEventListener('pointerdown', function (e) {
+      // 키보드 접근용 range를 직접 조작하는 경우는 제외
+      if (e.target === range) return;
+      dragging = true;
+      el.classList.add('dragging', 'touched');
+      el.setPointerCapture(e.pointerId);
+      moveTo(e.clientX);
+      e.preventDefault();
+    });
+
+    el.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      moveTo(e.clientX);
+    });
+
+    function stop(e) {
+      if (!dragging) return;
+      dragging = false;
+      el.classList.remove('dragging');
+      if (e.pointerId !== undefined && el.hasPointerCapture && el.hasPointerCapture(e.pointerId)) {
+        el.releasePointerCapture(e.pointerId);
+      }
+    }
+    el.addEventListener('pointerup', stop);
+    el.addEventListener('pointercancel', stop);
+
     if (range) {
-      range.addEventListener('input', function () { set(Number(range.value)); });
+      range.addEventListener('input', function () {
+        el.classList.add('touched');
+        set(Number(range.value));
+      });
     }
   });
 })();
@@ -51,4 +77,52 @@
   document.querySelectorAll('.marquee-track').forEach(function (track) {
     track.innerHTML += track.innerHTML;
   });
+})();
+
+// 숫자 카운터: 화면에 들어오면 목표값까지 올라간다
+(function () {
+  var els = document.querySelectorAll('.stat .v[data-to]');
+  if (!els.length) return;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function format(n, decimals) {
+    return n.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function run(el) {
+    var to = parseFloat(el.dataset.to);
+    var decimals = (el.dataset.to.split('.')[1] || '').length;
+    var unit = el.dataset.unit || '';
+    var suffix = unit ? '<span class="u">' + unit + '</span>' : '';
+
+    if (reduce) {
+      el.innerHTML = format(to, decimals) + suffix;
+      return;
+    }
+    var start = null;
+    var dur = 1400;
+    function step(ts) {
+      if (start === null) start = ts;
+      var t = Math.min((ts - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - t, 3);
+      el.innerHTML = format(to * eased, decimals) + suffix;
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(run);
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        run(entry.target);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  els.forEach(function (el) { io.observe(el); });
 })();

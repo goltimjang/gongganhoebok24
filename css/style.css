@@ -205,8 +205,12 @@ section.tight { padding: 56px 0; }
   position: relative; overflow: hidden; border-radius: 6px;
   border: 1px solid var(--line); background: #dfe4e9;
   --p: 50%;
+  aspect-ratio: 4 / 3;
   touch-action: none;
+  cursor: grab;
+  user-select: none;
 }
+.bas.dragging { cursor: grabbing; }
 .bas > img, .bas .bas-top img {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
 }
@@ -221,12 +225,19 @@ section.tight { padding: 56px 0; }
 }
 .bas .bas-knob {
   position: absolute; top: 50%; left: 1px; transform: translate(-50%, -50%);
-  width: 40px; height: 40px; border-radius: 50%;
+  width: 44px; height: 44px; border-radius: 50%;
   background: #fff; color: var(--ink);
   display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 700; letter-spacing: -1px;
-  box-shadow: 0 2px 10px rgba(0,0,0,.3);
+  font-size: 15px; font-weight: 700; letter-spacing: -2px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.35);
 }
+.bas .bas-hint {
+  position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%);
+  z-index: 3; font-size: 12.5px; color: #fff;
+  background: rgba(20,28,38,.66); padding: 5px 12px; border-radius: 20px;
+  pointer-events: none; transition: opacity .25s;
+}
+.bas.touched .bas-hint { opacity: 0; }
 .bas .bas-tag {
   position: absolute; top: 12px; z-index: 2;
   font-size: 12.5px; font-weight: 700; color: #fff;
@@ -236,8 +247,8 @@ section.tight { padding: 56px 0; }
 .bas .bas-tag-b { left: 12px; }
 .bas .bas-tag-a { right: 12px; }
 .bas input[type="range"] {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  opacity: 0; cursor: ew-resize; margin: 0;
+  position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 44px;
+  opacity: 0; margin: 0; cursor: grab;
 }
 .ba-note { margin-top: 26px; font-size: 13.5px; color: var(--ink-soft); }
 
@@ -261,6 +272,20 @@ section.tight { padding: 56px 0; }
   to { transform: translateX(-50%); }
 }
 .marquee-note { margin-top: 18px; font-size: 13.5px; color: var(--ink-soft); }
+
+/* 숨고 브랜드 포인트 */
+:root { --soomgo: #7c4dff; --soomgo-soft: #f3efff; }
+.soomgo-band { background: var(--soomgo-soft); }
+.soomgo-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--soomgo); color: #fff;
+  font-size: 13px; font-weight: 700; letter-spacing: -0.01em;
+  padding: 7px 14px; border-radius: 20px;
+}
+.soomgo-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: #fff; }
+.marquee img { border-color: #e4dbff; }
+.rv-card.soomgo { border-top: 3px solid var(--soomgo); }
+.rv-card.soomgo .rv-src { color: var(--soomgo); font-weight: 700; }
 
 /* ---------- 후기 카드 ---------- */
 .rv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
@@ -335,3 +360,44 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   padding: 10px 16px; z-index: 100;
 }
 .skip:focus { left: 0; }
+
+
+/* ---------- 숫자 카운터 ---------- */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+@media (max-width: 860px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+.stat {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+  padding: 28px 22px; text-align: center;
+}
+.stat .v {
+  font-size: clamp(30px, 4.4vw, 44px); font-weight: 800;
+  color: var(--accent-deep); line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.stat .v .u { font-size: .5em; margin-left: 3px; color: var(--ink-soft); font-weight: 700; }
+.stat .k { margin-top: 10px; font-size: 14.5px; color: var(--ink-soft); }
+.stat .ex {
+  display: inline-block; margin-top: 8px; font-size: 11.5px; font-weight: 700;
+  color: #8a5a00; background: #fff3d6; border: 1px solid #f0dca8;
+  padding: 2px 8px; border-radius: 4px;
+}
+.stats-note { margin-top: 20px; font-size: 13px; color: var(--ink-soft); }
+
+/* ---------- PC 우측 플로팅 버튼 ---------- */
+.side-cta {
+  position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
+  z-index: 55; display: none; flex-direction: column; gap: 10px;
+}
+@media (min-width: 861px) { .side-cta { display: flex; } }
+.side-cta a {
+  width: 62px; height: 62px; border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px; text-decoration: none; font-size: 11px; font-weight: 700;
+  box-shadow: 0 4px 14px rgba(27,44,64,.22);
+  transition: transform .15s;
+}
+.side-cta a:hover { transform: translateY(-2px); }
+.side-cta a svg { width: 22px; height: 22px; display: block; }
+.side-cta .s-kakao { background: #fae100; color: #3c1e1e; }
+.side-cta .s-blog { background: #03c75a; color: #fff; }
+.side-cta .s-tel { background: var(--accent); color: #fff; }
