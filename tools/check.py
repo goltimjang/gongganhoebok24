@@ -10,7 +10,6 @@ import xml.etree.ElementTree as ET
 SITE = {
     "phone": "010-9265-7604",
     "brand": "공간회복24",
-    "legal_name": "투명클린",
     "ceo": "김효중",
     "biz_no": "604-07-95837",
     "kakao": "https://open.kakao.com/o/sWXW52Hi",
@@ -36,11 +35,13 @@ for f in pages:
     t = open(f, encoding="utf-8").read()
     if "—" in t:
         errs.append(f"{f}: 엠 대시(U+2014) 발견")
+    if "투명클린" in t:
+        errs.append(f"{f}: 금지어 '투명클린' 발견")
     nums = set(re.findall(r"01[0-9]-\d{3,4}-\d{4}", t))
     if nums - {SITE["phone"]}:
         errs.append(f"{f}: 등록되지 않은 전화번호 {nums - {SITE['phone']}}")
     if f not in ("404.html",):
-        for key in ("brand", "legal_name", "ceo", "biz_no"):
+        for key in ("brand", "ceo", "biz_no"):
             if SITE[key] not in t:
                 errs.append(f"{f}: {key} ({SITE[key]}) 누락")
     p = LD(); p.feed(t)
@@ -52,7 +53,7 @@ for f in pages:
     for href in re.findall(r'(?:href|src)="([^"]+)"', t):
         if href.startswith(("http", "tel:", "mailto:", "#")):
             continue
-        path = href.split("#")[0]
+        path = href.split("#")[0].split("?")[0]
         if path and not os.path.exists(path):
             errs.append(f"{f}: 깨진 링크 {href}")
 
