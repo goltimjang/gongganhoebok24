@@ -35,17 +35,28 @@ python3 -m http.server 8613
 # 브라우저에서 http://localhost:8613 접속
 ```
 
-## 도메인 연결 (areaclaen24.co.kr)
+## 도메인
 
-현재는 GitHub Pages 기본 주소로 서비스됩니다. 도메인을 연결하려면:
+정식 주소는 **https://areaclean24.com** 입니다 (등록업체: 가비아).
 
-1. 저장소 Settings → Pages → Custom domain에 도메인 입력 (CNAME 파일이 자동 생성됨)
-2. 도메인 등록업체 DNS에서 `www` CNAME을 `<계정>.github.io`로, 루트(A 레코드)는 GitHub Pages IP로 설정
-3. HTTPS(Enforce HTTPS) 활성화
-4. 모든 HTML의 `canonical`, `og:url`, JSON-LD URL과 `sitemap.xml`, `robots.txt`의 주소를 새 도메인으로 일괄 치환:
-   ```bash
-   grep -rl "goltimjang.github.io/gongganhoebok24" . | xargs sed -i '' 's#https://areaclean24.com#https://새도메인#g'
-   ```
+- 저장소 루트의 `CNAME` 파일이 GitHub Pages 사용자 지정 도메인을 지정합니다. 이 파일을 지우면 도메인 연결이 끊깁니다.
+- 가비아 DNS에 등록된 레코드
+  | 타입 | 호스트 | 값 | TTL |
+  |---|---|---|---|
+  | A | @ | 185.199.108.153 | 3600 |
+  | A | @ | 185.199.109.153 | 3600 |
+  | A | @ | 185.199.110.153 | 3600 |
+  | A | @ | 185.199.111.153 | 3600 |
+  | CNAME | www | goltimjang.github.io. | 3600 |
+- `www.areaclean24.com`과 기존 GitHub 주소는 모두 정식 주소로 자동 이동합니다.
+- HTTPS 강제(Enforce HTTPS)가 켜져 있습니다.
+
+도메인을 다시 바꿀 때는 `CNAME` 파일과 DNS 레코드를 수정한 뒤, 사이트 안의 절대 주소를 함께 바꿉니다.
+
+```bash
+grep -rl "https://areaclean24.com" . | xargs sed -i '' 's#https://areaclean24.com#https://새도메인#g'
+python3 tools/check.py
+```
 
 ## 회사로 소유권 이전
 
