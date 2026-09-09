@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://goltimjang.github.io/gongganhoebok24/sitemap.xml
+Sitemap: https://areaclean24.com/sitemap.xml
