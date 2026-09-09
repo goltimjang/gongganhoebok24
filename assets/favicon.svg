@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" fill="#20261f"/>
-  <path d="M14 40 L14 20 L34 20" fill="none" stroke="#f6f4ee" stroke-width="6"/>
-  <path d="M50 24 L50 44 L30 44" fill="none" stroke="#a8502a" stroke-width="6"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="공간회복24">
+  <rect width="64" height="64" rx="14" fill="#2f6fb4"/>
+  <g fill="#ffffff" transform="translate(3.30,48.50) scale(0.04628,-0.04628)">
+    <path d="M572 0H34V119L299 366Q339 403 353.0 430.5Q367 458 367 484Q367 521 341.5 540.5Q316 560 267 560Q226 560 191.5 543.0Q157 526 133 492L-1 577Q41 640 115.5 676.5Q190 713 285 713Q364 713 424.5 687.5Q485 662 518.0 614.0Q551 566 551 502Q551 445 527.0 394.0Q503 343 434 280L291 149H572Z" transform="translate(0,0)"/><path d="M533 138V0H354V138H-19V261L302 700H494L200 287H360V410H533V287H641V138Z" transform="translate(600,0)"/>
+  </g>
 </svg>
