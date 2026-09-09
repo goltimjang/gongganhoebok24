@@ -504,3 +504,44 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 
 /* 절차 섹션에서는 기존 상단 보더 대신 뱃지를 쓴다 */
 .steps.flow .step { border-top: 0; padding-top: 0; }
+
+/* ---------- 폐기물처리 신고 확인 카드 ---------- */
+.permit-card {
+  background: linear-gradient(160deg, #f7fafd 0%, #eef4fa 100%);
+  border: 1px solid #cfe0f0;
+  border-radius: 14px;
+  padding: 34px 30px 30px;
+  text-align: center;
+  position: relative;
+}
+.permit-card .seal {
+  width: 82px; height: 82px; margin: 0 auto 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 8px rgba(47,111,180,.12);
+}
+.permit-card .seal svg { width: 42px; height: 42px; }
+.permit-card .t {
+  font-size: 19px; font-weight: 800; line-height: 1.4;
+}
+.permit-card .no {
+  display: inline-block; margin-top: 12px;
+  font-size: 15px; font-weight: 700; color: var(--accent-deep);
+  background: #fff; border: 1px solid #cfe0f0; border-radius: 20px;
+  padding: 7px 18px;
+}
+.permit-card dl {
+  margin-top: 24px; border-top: 1px solid #d9e6f2;
+  text-align: left; font-size: 14.5px;
+}
+.permit-card dl div {
+  display: flex; gap: 14px; padding: 11px 2px;
+  border-bottom: 1px solid #e5eef6;
+}
+.permit-card dt { width: 6.5em; flex: none; color: var(--ink-soft); font-weight: 700; }
+.permit-card dd { color: var(--ink); }
+.permit-card .note {
+  margin-top: 18px; font-size: 12.5px; color: var(--ink-soft); line-height: 1.6;
+}
