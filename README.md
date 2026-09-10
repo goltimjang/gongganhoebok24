@@ -66,8 +66,18 @@ python3 tools/check.py
 고객이 홈페이지에서 직접 후기를 남기고(닉네임 또는 익명, 사진 최대 3장),
 사장님이 승인한 후기만 표시되는 기능입니다. 서버 비용은 들지 않습니다.
 
-`js/review-config.js` 의 `ENDPOINT` 가 비어 있으면 작성 폼과 고객 후기 목록이
-화면에 나타나지 않습니다. 설치 방법은 `tools/REVIEW-SETUP.md` 를 참고하세요.
+**연결 완료 (2026-09-10).** 저장소는 Supabase를 사용합니다.
+
+- 조직/프로젝트: `areaclean24` (무료 플랜, 서울 리전)
+- 후기 표: `reviews` · 사진 보관함: `review-photos`
+- 홈페이지에는 **공개용 키(publishable)** 만 들어갑니다. secret 키와
+  데이터베이스 비밀번호는 사이트에 넣지 않습니다.
+- 읽기와 등록만 허용하고 수정·삭제는 정책으로 막혀 있습니다.
+
+후기 관리는 Supabase 대시보드 **Table Editor → reviews** 에서 합니다.
+지우면 홈페이지에서 즉시 사라지고, 지우지 않고 숨기려면 `hidden` 을 `true` 로 바꿉니다.
+
+설정 파일은 `js/review-config.js`, 설치 절차는 `tools/REVIEW-SETUP.md` 를 참고하세요.
 
 ## 회사로 소유권 이전
 
