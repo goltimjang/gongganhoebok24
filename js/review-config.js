@@ -10,8 +10,8 @@ window.REVIEW_CONFIG = {
   PROVIDER: "supabase",
 
   SUPABASE: {
-    URL: "",        // 예: https://abcdefgh.supabase.co
-    ANON_KEY: "",   // 예: eyJhbGciOi...
+    URL: "https://ibncnjdyvxhidfiehvhv.supabase.co",
+    ANON_KEY: "sb_publishable_1eqewSuXRX_400qhTqWksQ_1-cyVXoT",
     TABLE: "reviews",
     BUCKET: "review-photos"
   },
