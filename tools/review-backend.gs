@@ -4,7 +4,8 @@
  * 하는 일
  *  - 홈페이지 후기 작성 폼에서 보낸 내용을 구글 시트에 저장합니다.
  *  - 첨부 사진은 구글 드라이브 폴더에 저장합니다.
- *  - 사장님이 시트에서 '승인' 으로 바꾼 후기만 홈페이지에 표시됩니다.
+ *  - 등록된 후기는 바로 홈페이지에 표시됩니다.
+ *    시트의 '상태' 열을 '숨김' 으로 바꾸면 그 후기만 화면에서 내려갑니다.
  *
  * 설치 방법은 tools/REVIEW-SETUP.md 를 참고하세요.
  */
@@ -28,7 +29,7 @@ function doGet(e) {
     var out = [];
     for (var i = 1; i < rows.length; i++) {
       var r = rows[i];
-      if (String(r[7]).trim() !== '승인') continue;
+      if (String(r[7]).trim() === '숨김') continue;
       out.push({
         date: formatDate(r[0]),
         nickname: r[1] || '익명',
@@ -62,6 +63,9 @@ function doPost(e) {
 
     if (body.replace(/\s/g, '').length < 10) {
       return json({ ok: false, error: '후기 내용을 10자 이상 남겨주세요.' });
+    }
+    if (looksLikeSpam(body) || looksLikeSpam(nickname)) {
+      return json({ ok: false, error: '광고나 연락처, 링크가 포함된 글은 등록할 수 없습니다.' });
     }
     if (!data.agree) {
       return json({ ok: false, error: '게시 동의를 확인해 주세요.' });
@@ -103,7 +107,7 @@ function doPost(e) {
       body,                // E 내용
       urls.join(','),      // F 사진
       '',                  // G 메모
-      '대기'                // H 상태 (대기 / 승인 / 보류)
+      '공개'                // H 상태 (공개 / 숨김)
     ]);
 
     return json({ ok: true });
@@ -128,6 +132,18 @@ function getSheet() {
 function getFolder() {
   var it = DriveApp.getFoldersByName(PHOTO_FOLDER);
   return it.hasNext() ? it.next() : DriveApp.createFolder(PHOTO_FOLDER);
+}
+
+var BLOCK = ['카지노', '바카라', '토토', '먹튀', '비아그라', '대출', '홀덤',
+             '섹스', '야동', '립카페', '조건만남', 'viagra', 'casino', 'crypto',
+             '코인리딩', '주식리딩', '씨발', '개새끼', '병신', '좆'];
+
+function looksLikeSpam(text) {
+  var low = String(text || '').toLowerCase();
+  for (var i = 0; i < BLOCK.length; i++) if (low.indexOf(BLOCK[i]) !== -1) return true;
+  if (/https?:\/\//.test(low)) return true;
+  if (/01[016789][-\s]?\d{3,4}[-\s]?\d{4}/.test(low)) return true;
+  return false;
 }
 
 function clean(v, max) {
