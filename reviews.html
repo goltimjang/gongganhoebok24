@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap">
-<link rel="stylesheet" href="css/style.css?v=9">
+<link rel="stylesheet" href="css/style.css?v=10">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -106,6 +106,92 @@
   </div>
 </section>
 
+<!-- 고객이 남긴 후기 -->
+<section id="customer-reviews-section" hidden>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">FROM CUSTOMERS</span>
+      <h2>고객님이 남겨주신 후기</h2>
+      <p>홈페이지에서 직접 남겨주신 후기입니다. 확인 절차를 거친 후기만 게시됩니다.</p>
+    </div>
+    <p id="customer-reviews-status">후기를 불러오는 중입니다.</p>
+    <div class="rv-grid" id="customer-reviews"></div>
+  </div>
+</section>
+
+<!-- 후기 작성 -->
+<section class="alt" id="review-write-section" hidden>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">WRITE</span>
+      <h2>후기 남기기</h2>
+      <p>이름 대신 닉네임으로 남기실 수 있고, 비워두시면 익명으로 표시됩니다. 사진은 3장까지 첨부할 수 있습니다.</p>
+    </div>
+
+    <form class="rv-form" id="review-form" novalidate>
+      <div class="rv-row">
+        <label for="rv-nickname">닉네임 <span class="hint">비워두시면 익명으로 표시됩니다</span></label>
+        <input type="text" id="rv-nickname" name="nickname" maxlength="20" placeholder="예: 논산 김OO" autocomplete="off">
+      </div>
+
+      <div class="rv-row">
+        <label for="rv-service">이용하신 서비스</label>
+        <select id="rv-service" name="service">
+          <option value="유품정리">유품정리</option>
+          <option value="고독사 현장 정리">고독사 현장 정리</option>
+          <option value="쓰레기집 청소">쓰레기집 청소</option>
+          <option value="퇴거청소">퇴거청소</option>
+          <option value="이사폐기물 처리">이사폐기물 처리</option>
+          <option value="특수청소">특수청소</option>
+          <option value="기타">기타</option>
+        </select>
+      </div>
+
+      <div class="rv-row">
+        <fieldset class="rv-stars-input">
+          <legend class="rv-legend">별점</legend>
+          <input type="radio" id="rv-star5" name="rating" value="5" checked><label for="rv-star5" title="5점">★</label>
+          <input type="radio" id="rv-star4" name="rating" value="4"><label for="rv-star4" title="4점">★</label>
+          <input type="radio" id="rv-star3" name="rating" value="3"><label for="rv-star3" title="3점">★</label>
+          <input type="radio" id="rv-star2" name="rating" value="2"><label for="rv-star2" title="2점">★</label>
+          <input type="radio" id="rv-star1" name="rating" value="1"><label for="rv-star1" title="1점">★</label>
+        </fieldset>
+      </div>
+
+      <div class="rv-row">
+        <label for="rv-body">후기 내용 <span class="hint">10자 이상</span></label>
+        <textarea id="rv-body" name="body" maxlength="1000" required
+          placeholder="어떤 작업을 맡기셨고, 어떤 점이 좋으셨는지 편하게 적어주세요."></textarea>
+      </div>
+
+      <div class="rv-row">
+        <span class="rv-legend">사진 첨부 <span class="hint">최대 3장, 선택 사항</span></span>
+        <label class="rv-file">
+          사진 선택하기
+          <input type="file" id="rv-photos" accept="image/jpeg,image/png,image/webp" multiple>
+        </label>
+        <div id="rv-preview"></div>
+      </div>
+
+      <div class="rv-row">
+        <label class="rv-agree">
+          <input type="checkbox" id="rv-agree" required>
+          <span>작성한 내용과 사진이 홈페이지에 게시되는 것에 동의합니다. 개인을 알아볼 수 있는 정보는 적지 말아주세요.
+          자세한 내용은 <a href="privacy.html">개인정보처리방침</a>을 확인해 주세요.</span>
+        </label>
+      </div>
+
+      <div class="rv-hp" aria-hidden="true">
+        <label for="rv-website">이 칸은 비워두세요</label>
+        <input type="text" id="rv-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button type="submit" class="btn btn-accent">후기 등록하기</button>
+      <p class="rv-msg" id="rv-msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
 <section class="alt">
   <div class="wrap">
     <div class="sec-head">
@@ -159,6 +245,7 @@
       <div>
         <b>상담</b>
         <p style="margin-top:10px;">전화 <a href="tel:010-9265-7604">010-9265-7604</a><br>
+        전화 <a href="tel:010-8928-6141">010-8928-6141</a><br>
         <a href="https://open.kakao.com/o/sWXW52Hi" target="_blank" rel="noopener">카카오톡 오픈채팅 상담</a><br>
         <a href="https://blog.naver.com/limpidityclean" target="_blank" rel="noopener">네이버 블로그</a></p>
       </div>
@@ -195,6 +282,8 @@
   <a class="k" href="https://open.kakao.com/o/sWXW52Hi" target="_blank" rel="noopener">카톡 상담</a>
 </nav>
 
-<script src="js/main.js?v=9" defer></script>
+<script src="js/main.js?v=10" defer></script>
+<script src="js/review-config.js?v=1" defer></script>
+<script src="js/review.js?v=2" defer></script>
 </body>
 </html>

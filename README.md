@@ -12,6 +12,9 @@
 | `gallery.html` | 작업 전후 사진 24건 |
 | `reviews.html` | 숨고 고객 후기 (전사 + 원문 캡처) |
 | `privacy.html` | 개인정보처리방침 |
+| `js/review-config.js` | 고객 후기 기능 켜고 끄는 설정 (백엔드 주소) |
+| `tools/review-backend.gs` | 후기 접수 백엔드 (구글 앱스 스크립트) |
+| `tools/REVIEW-SETUP.md` | 후기 기능 설치 안내 |
 | `404.html` | 오류 페이지 |
 | `assets/video/hero.mp4` | 히어로 배경 영상 (연출 컷, 2MB) |
 
@@ -57,6 +60,14 @@ python3 -m http.server 8613
 grep -rl "https://areaclean24.com" . | xargs sed -i '' 's#https://areaclean24.com#https://새도메인#g'
 python3 tools/check.py
 ```
+
+## 고객 후기 기능
+
+고객이 홈페이지에서 직접 후기를 남기고(닉네임 또는 익명, 사진 최대 3장),
+사장님이 승인한 후기만 표시되는 기능입니다. 서버 비용은 들지 않습니다.
+
+`js/review-config.js` 의 `ENDPOINT` 가 비어 있으면 작성 폼과 고객 후기 목록이
+화면에 나타나지 않습니다. 설치 방법은 `tools/REVIEW-SETUP.md` 를 참고하세요.
 
 ## 회사로 소유권 이전
 

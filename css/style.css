@@ -545,3 +545,75 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .permit-card .note {
   margin-top: 18px; font-size: 12.5px; color: var(--ink-soft); line-height: 1.6;
 }
+
+/* 상담 영역 보조 전화번호 */
+.contact-box .tel { display: block; }
+.contact-box .tel-sub { margin-top: 6px; font-size: clamp(24px, 3.6vw, 34px); color: var(--accent); }
+
+/* ---------- 고객 후기 작성 폼 ---------- */
+.rv-form {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+  padding: 32px 30px 30px; max-width: 720px;
+}
+.rv-row { margin-bottom: 22px; }
+.rv-row > label, .rv-legend {
+  display: block; font-weight: 700; font-size: 15px; margin-bottom: 8px;
+}
+.rv-row .hint { font-weight: 400; color: var(--ink-soft); font-size: 13.5px; }
+.rv-form input[type="text"], .rv-form select, .rv-form textarea {
+  width: 100%; font: inherit; color: var(--ink);
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: 12px 14px; background: #fff;
+}
+.rv-form textarea { min-height: 150px; resize: vertical; line-height: 1.7; }
+.rv-form input:focus, .rv-form select:focus, .rv-form textarea:focus {
+  outline: 3px solid var(--accent); outline-offset: 1px; border-color: var(--accent);
+}
+.rv-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* 별점 */
+.rv-stars-input { display: flex; gap: 4px; border: 0; padding: 0; margin: 0; }
+.rv-stars-input input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.rv-stars-input label {
+  cursor: pointer; font-size: 30px; line-height: 1; color: #d6dde5;
+  transition: color .15s;
+}
+.rv-stars-input input:checked ~ label,
+.rv-stars-input label:hover, .rv-stars-input label:hover ~ label { color: #e8a93c; }
+.rv-stars-input { flex-direction: row-reverse; justify-content: flex-end; }
+.rv-stars-input input:focus-visible + label { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* 사진 첨부 */
+.rv-file {
+  display: inline-block; cursor: pointer; font-weight: 700; font-size: 15px;
+  border: 1px dashed var(--accent); color: var(--accent-deep);
+  border-radius: 8px; padding: 13px 20px; background: #f5f9fd;
+}
+.rv-file:hover { background: #eaf2fa; }
+.rv-file input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+#rv-preview { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.rv-thumb { position: relative; width: 96px; height: 96px; }
+.rv-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); }
+.rv-thumb button {
+  position: absolute; top: -6px; right: -6px; cursor: pointer;
+  background: var(--ink); color: #fff; border: 0; border-radius: 50%;
+  width: 24px; height: 24px; font-size: 11px; line-height: 1;
+}
+
+/* 동의 */
+.rv-agree { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; color: var(--ink-soft); }
+.rv-agree input { margin-top: 4px; width: 18px; height: 18px; flex: none; }
+
+/* 상태 메시지 */
+.rv-msg { margin-top: 14px; font-size: 14.5px; min-height: 1.4em; }
+.rv-msg.ok { color: #1c7a4b; font-weight: 700; }
+.rv-msg.err { color: #c0392b; font-weight: 700; }
+
+/* 고객 후기 카드 */
+.rv-card.cust { border-top: 3px solid var(--accent); }
+.rv-card.cust .rv-src { color: var(--accent-deep); font-weight: 700; }
+.rv-photos { display: flex; flex-wrap: wrap; gap: 8px; }
+.rv-photos img {
+  width: 88px; height: 88px; object-fit: cover;
+  border-radius: 6px; border: 1px solid var(--line);
+}

@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 
 # 회사 정보의 단일 원본. 값을 바꾸면 모든 페이지가 이 값과 일치하는지 검사합니다.
 SITE = {
-    "phone": "010-9265-7604",
+    "phones": ["010-9265-7604", "010-8928-6141"],
     "brand": "공간회복24",
     "ceo": "김효중",
     "biz_no": "604-07-95837",
@@ -38,12 +38,15 @@ for f in pages:
     if "투명클린" in t:
         errs.append(f"{f}: 금지어 '투명클린' 발견")
     nums = set(re.findall(r"01[0-9]-\d{3,4}-\d{4}", t))
-    if nums - {SITE["phone"]}:
-        errs.append(f"{f}: 등록되지 않은 전화번호 {nums - {SITE['phone']}}")
+    unknown = nums - set(SITE["phones"])
+    if unknown:
+        errs.append(f"{f}: 등록되지 않은 전화번호 {unknown}")
     if f not in ("404.html",):
         for key in ("brand", "ceo", "biz_no"):
             if SITE[key] not in t:
                 errs.append(f"{f}: {key} ({SITE[key]}) 누락")
+        if SITE["phones"][0] not in t:
+            errs.append(f"{f}: 대표 전화번호 누락")
     p = LD(); p.feed(t)
     for b in p.blocks:
         try:
