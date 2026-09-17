@@ -125,9 +125,22 @@
       });
     };
   } else {
+    // 같은 브라우저를 구분하는 임의 값 (재등록 제한용, 개인정보 아님)
+    var visitorId = function () {
+      var id = '';
+      try { id = localStorage.getItem('rv_vid') || ''; } catch (e) {}
+      if (!id) {
+        id = Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+        try { localStorage.setItem('rv_vid', id); } catch (e) {}
+      }
+      return id;
+    };
     api.list = function () {
       return fetch(gas.ENDPOINT).then(function (r) { return r.json(); })
-        .then(function (d) { return (d && d.ok && d.reviews) || []; });
+        .then(function (d) {
+          if (!d || !d.ok || !Array.isArray(d.reviews)) throw new Error('list failed');
+          return d.reviews;
+        });
     };
     api.upload = function (blobs) {
       // 앱스 스크립트는 사진을 본문에 담아 함께 보낸다
@@ -146,7 +159,7 @@
         body: JSON.stringify({
           nickname: data.nickname, service: data.service, rating: data.rating,
           body: data.body, photos: photos, agree: true, website: data.website,
-          fp: navigator.userAgent
+          fp: visitorId()
         })
       }).then(function (r) { return r.json(); })
         .then(function (d) { if (!d.ok) throw new Error(d.error || '등록에 실패했습니다.'); });
@@ -201,6 +214,8 @@
     msg.className = 'rv-msg' + (kind ? ' ' + kind : '');
   }
 
+  var preparing = 0;  // 줄이는 중인 사진 묶음 수
+
   function shrink(file) {
     return new Promise(function (resolve, reject) {
       var img = new Image();
@@ -234,6 +249,7 @@
       var max = cfg.MAX_PHOTOS || 3;
       var files = Array.prototype.slice.call(fileInput.files, 0, max - picked.length);
       if (!files.length) return;
+      preparing++;
       say('사진을 준비하는 중입니다.');
       Promise.all(files.map(shrink)).then(function (list) {
         picked = picked.concat(list).slice(0, max);
@@ -242,7 +258,7 @@
         fileInput.value = '';
       }).catch(function () {
         say('사진을 읽지 못했습니다. 다른 사진으로 시도해 주세요.', 'err');
-      });
+      }).then(function () { preparing--; });
     });
   }
 
@@ -265,6 +281,11 @@
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+
+    if (preparing > 0) {
+      say('사진을 준비하고 있습니다. 잠시 후 다시 눌러주세요.', 'err');
+      return;
+    }
 
     var body = form.querySelector('#rv-body').value.trim();
     if (body.replace(/\s/g, '').length < 10) {
