@@ -79,6 +79,18 @@ python3 tools/check.py
 
 설정 파일은 `js/review-config.js`, 설치 절차는 `tools/REVIEW-SETUP.md` 를 참고하세요.
 
+### 무료 플랜 일시정지 대응
+
+Supabase 무료 플랜은 **일주일 동안 요청이 거의 없으면 프로젝트를 일시정지**합니다.
+유료 결제가 강제되는 것은 아니며, 데이터와 사진은 그대로 보관됩니다.
+
+- `.github/workflows/keep-reviews-alive.yml` 이 **매일 두 번** 후기 목록을 조회해 정지를 막습니다.
+- 조회가 실패하면 작업이 실패로 표시되고 GitHub이 저장소 주인에게 메일을 보냅니다.
+- 그래도 정지됐다면 Supabase 대시보드에서 **Resume project** 를 누르면 무료로 복구됩니다.
+  (Upgrade to Pro 가 아닙니다)
+- 저장소가 응답하지 않는 동안에는 홈페이지의 후기 작성 폼과 고객 후기 목록이
+  자동으로 숨겨지고, 숨고 후기 요약은 그대로 보입니다.
+
 ## 회사로 소유권 이전
 
 저장소 Settings → General → Danger Zone → Transfer ownership에서 회사 GitHub 계정으로 이전하면 됩니다. 이전 후 Pages 설정과 도메인 연결을 다시 확인하세요.

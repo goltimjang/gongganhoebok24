@@ -18,7 +18,8 @@
   function show(id) { var el = document.getElementById(id); if (el) el.hidden = false; }
   function hide(id) { var el = document.getElementById(id); if (el) el.hidden = true; }
 
-  show('review-write-section');
+  // 작성 폼은 저장소가 실제로 응답하는 것을 확인한 뒤에 연다.
+  // (저장소가 일시정지 등으로 멈춰 있으면 고객에게 고장 난 폼을 보여주지 않는다)
 
   /* ---------- 공통 도구 ---------- */
   function esc(s) {
@@ -63,8 +64,12 @@
       return fetch(base + '/rest/v1/' + sb.TABLE +
           '?select=created_at,nickname,service,rating,body,photos&hidden=eq.false' +
           '&order=created_at.desc&limit=60', { headers: headers })
-        .then(function (r) { return r.json(); })
+        .then(function (r) {
+          if (!r.ok) throw new Error('reviews unavailable');
+          return r.json();
+        })
         .then(function (rows) {
+          if (!Array.isArray(rows)) throw new Error('reviews unavailable');
           return (rows || []).map(function (r) {
             return {
               date: fmtDate(r.created_at),
@@ -164,8 +169,12 @@
   }
 
   function loadList() {
-    if (!listWrap) return Promise.resolve();
+    if (!listWrap) {
+      return api.list().then(function () { show('review-write-section'); })
+        .catch(function () { hide('review-write-section'); });
+    }
     return api.list().then(function (reviews) {
+      show('review-write-section');
       var status = document.getElementById('customer-reviews-status');
       if (!reviews.length) { hide('customer-reviews-section'); return; }
       if (status) status.remove();
@@ -173,6 +182,7 @@
       listWrap.innerHTML = reviews.map(cardHTML).join('');
     }).catch(function () {
       hide('customer-reviews-section');
+      hide('review-write-section');
     });
   }
   loadList();
