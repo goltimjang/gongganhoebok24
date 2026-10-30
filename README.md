@@ -8,6 +8,9 @@
 | 파일 | 내용 |
 |---|---|
 | `index.html` | 메인 (히어로 영상, 서비스, 절차, 신뢰 정보, 전후/후기 미리보기, FAQ, 상담) |
+| `estate-cleanup.html` | 유품정리 상세 안내 (작업 범위·견적 준비·주요 출장 지역) |
+| `moving-waste.html` | 이사폐기물 처리 상세 안내 |
+| `special-cleaning.html` | 특수청소 상세 안내 |
 | `about.html` | 소개 (작업 원칙, 허가·등록 정보) |
 | `gallery.html` | 작업 전후 사진 24건 |
 | `reviews.html` | 숨고 고객 후기 (전사 + 원문 캡처) |
@@ -94,3 +97,13 @@ python3 tools/check.py
 - 후기는 숨고 접수 원문 캡처가 있는 것만 게시합니다.
 - 전후 사진은 실제 작업 현장 사진만 사용합니다.
 - 내용을 수정한 날에만 `sitemap.xml`의 `lastmod`를 갱신합니다.
+
+## 서비스별 광고 연결 페이지 (2026-10-30)
+
+- 유품정리: `https://areaclean24.com/estate-cleanup.html`
+- 이사폐기물 처리: `https://areaclean24.com/moving-waste.html`
+- 특수청소: `https://areaclean24.com/special-cleaning.html`
+
+세 페이지는 대전·청주·천안·아산·세종·전주·익산 출장 상담을 안내합니다.
+지역 지점이나 지역별 실적을 의미하지 않습니다. 주요 내용은 자바스크립트 없이도 읽을 수 있는 HTML 본문입니다.
+광고 키워드의 연결 주소는 광고 계정에서 별도로 변경해야 합니다. 홈페이지 배포만으로 광고 설정이 바뀌지는 않습니다.

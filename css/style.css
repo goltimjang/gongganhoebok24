@@ -617,3 +617,64 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   width: 88px; height: 88px; object-fit: cover;
   border-radius: 6px; border: 1px solid var(--line);
 }
+
+/* 서비스 상세 안내: 기존 색상과 글꼴을 유지하고 핵심 정보를 항상 표시 */
+.hero .hero-regions { margin-top: 20px; color: #fff; font-size: clamp(16px, 2vw, 20px); font-weight: 700; text-shadow: 0 1px 8px rgba(0,0,0,.6); }
+#services, #service-area, #contact { scroll-margin-top: 84px; }
+.service-entries { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; }
+.service-entry { display: flex; flex-direction: column; border-top: 3px solid var(--accent); padding-top: 24px; }
+.service-entry h3 { font-size: 25px; }
+.service-entry h3 a { text-decoration: none; }
+.service-entry p { color: var(--ink-soft); margin: 16px 0 22px; }
+.service-entry-link { color: var(--accent-deep); font-weight: 700; margin-top: auto; text-underline-offset: 5px; }
+.other-services { margin-top: 42px; padding-top: 26px; border-top: 1px solid var(--line); }
+.other-services h3 { font-size: 19px; }
+.other-services p { margin: 10px 0; color: var(--ink-soft); max-width: 48em; }
+.other-services a, .detail-link a { color: var(--accent-deep); font-weight: 700; text-underline-offset: 4px; }
+.area-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.area-layout h2 { font-size: clamp(24px, 3vw, 30px); max-width: 18em; }
+.area-layout .region-names { font-size: 21px; color: var(--accent-deep); font-weight: 700; margin-top: 20px; line-height: 1.8; }
+.area-layout > div > p + p { margin-top: 16px; }
+.area-layout > div:last-child { color: var(--ink-soft); }
+.service-head { padding: 48px 0; }
+.service-head h1 { max-width: 24em; }
+.service-head .service-regions { color: var(--accent-deep); font-weight: 700; font-size: 18px; margin-top: 22px; max-width: none; }
+.service-head p:not(.crumb):not(.service-regions) { max-width: 48em; }
+.service-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+.service-links { display: flex; flex-wrap: wrap; gap: 12px 24px; border-top: 1px solid var(--line); margin-top: 32px; padding-top: 20px; }
+.service-links a { color: var(--ink-soft); text-underline-offset: 5px; font-size: 15px; }
+.service-links a[aria-current="page"] { color: var(--accent-deep); font-weight: 700; }
+.service-detail-layout { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 64px; align-items: start; }
+.service-detail-layout h2, .evidence-row h2 { font-size: clamp(24px, 3vw, 30px); }
+.scope-list { margin-top: 26px; }
+.scope-row { padding: 22px 0; border-top: 1px solid var(--line); }
+.scope-row h3 { font-size: 20px; }
+.scope-row p { color: var(--ink-soft); margin-top: 10px; }
+.quote-guide { background: var(--alt); padding: 30px; border-left: 3px solid var(--accent); }
+.quote-guide h2 { font-size: 22px; }
+.quote-guide ul { padding-left: 20px; margin: 22px 0; }
+.quote-guide li + li { margin-top: 12px; }
+.quote-guide p { color: var(--ink-soft); font-size: 15px; }
+.quote-guide a { display: inline-block; margin-top: 20px; color: var(--accent-deep); font-weight: 700; text-underline-offset: 5px; }
+.service-process { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; list-style: none; counter-reset: process; }
+.service-process li { counter-increment: process; padding-top: 18px; border-top: 2px solid var(--accent); }
+.service-process li::before { content: counter(process); display: block; color: var(--accent-deep); font-weight: 800; margin-bottom: 12px; }
+.service-process h3 { font-size: 19px; }
+.service-process p { color: var(--ink-soft); margin-top: 12px; font-size: 15px; }
+.evidence-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
+.evidence-row p { margin-top: 12px; color: var(--ink-soft); max-width: 34em; }
+.evidence-row .service-actions { margin-top: 0; }
+.detail-link { margin-top: 20px; }
+@media (max-width: 860px) {
+  .service-entries, .area-layout, .service-detail-layout { grid-template-columns: 1fr; gap: 32px; }
+  .service-process { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  .service-head { padding: 32px 0; }
+  .service-head h1 { font-size: 28px; }
+  .service-head .service-regions { font-size: 16px; }
+  .service-actions { flex-direction: column; align-items: stretch; }
+  .service-actions .btn { text-align: center; padding: 14px 16px; }
+  .service-process { grid-template-columns: 1fr; gap: 24px; }
+  .quote-guide { padding: 24px; }
+}

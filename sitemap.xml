@@ -1,8 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://areaclean24.com/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://areaclean24.com/about.html</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://areaclean24.com/gallery.html</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://areaclean24.com/reviews.html</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://areaclean24.com/privacy.html</loc><lastmod>2026-10-09</lastmod></url>
+  <url>
+    <loc>https://areaclean24.com/</loc>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://areaclean24.com/about.html</loc>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://areaclean24.com/gallery.html</loc>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://areaclean24.com/reviews.html</loc>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://areaclean24.com/privacy.html</loc>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://areaclean24.com/estate-cleanup.html</loc>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://areaclean24.com/moving-waste.html</loc>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://areaclean24.com/special-cleaning.html</loc>
+    <lastmod>2026-10-30</lastmod>
+  </url>
 </urlset>

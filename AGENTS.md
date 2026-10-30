@@ -15,6 +15,9 @@
 | 파일 | 내용 |
 |---|---|
 | `index.html` | 메인 (히어로 영상, 강점, 서비스, 절차, 전후 사진, 후기, FAQ, 상담) |
+| `estate-cleanup.html` | 유품정리 상세 안내 (작업 범위·견적 준비·주요 출장 지역) |
+| `moving-waste.html` | 이사폐기물 처리 상세 안내 |
+| `special-cleaning.html` | 특수청소 상세 안내 |
 | `about.html` | 소개, 신고·사업자 정보 |
 | `gallery.html` | 작업 전후 사진 24건 (드래그 비교 슬라이더) |
 | `reviews.html` | 숨고 후기 + 고객이 직접 쓰는 후기 |
